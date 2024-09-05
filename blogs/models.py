@@ -17,7 +17,7 @@ class Blog(models.Model):
     content = FroalaField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-    image = models.ImageField(upload_to='files/blogs')
+    image = models.ImageField(upload_to='files/blogs', null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
