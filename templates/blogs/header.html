@@ -35,18 +35,18 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="{% url 'create_blog' %}">Create</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated is not true%}
                       <img src="../media/files/blogs/KBFC-S11-FIXTURE-1-01.jpeg-1536x864.jpg" style="width: 30px; height: 30px;" class="rounded-circle" alt="...">
                     {% else %}
                       <img src="{% static '/Images/no-face-1.png' %} " style="width: 30px; height: 30px;" class="rounded-circle" alt="...">
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">
-                  {% if request.user.is_authenticated %}
+                  {% if request.user.is_authenticated is not true %}
                     <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
                   {% else %}
@@ -55,9 +55,9 @@
                   {% endif %}
                 </ul>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
+              </li> -->
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

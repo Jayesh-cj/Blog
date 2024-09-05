@@ -15,3 +15,12 @@ def get_blog(request, id):
     return render(request, 'blogs/blog.html',{
         'blog' : blog_obj
     })
+
+
+def create_blog(request):
+    return render(request, 'blogs/create_blog.html')
+
+def edit_blog(request):
+    return render(request, 'blogs/create_blog.html',{
+        'update' : "update"
+    })
