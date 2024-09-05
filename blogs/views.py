@@ -4,7 +4,7 @@ from .models import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'blogs/home.html')
 
 # Get  blog details
 def get_blog(request, id):
@@ -12,6 +12,6 @@ def get_blog(request, id):
         blog_obj = Blog.objects.get(id = id)
     except Exception as e:
         print(e)
-    return render(request, 'blog.html',{
+    return render(request, 'blogs/blog.html',{
         'blog' : blog_obj
     })
