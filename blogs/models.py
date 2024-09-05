@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from froala_editor.fields import FroalaField
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Category(models.Model):
 # Blogs model 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = FroalaField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     image = models.ImageField(upload_to='files/blogs')

@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from froala_editor import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/', include('blogs.urls'))
+    path('blogs/', include('blogs.urls')),
+
+    path('frola_editor/', include('froala_editor.urls'))
 ]
