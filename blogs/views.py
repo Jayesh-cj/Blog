@@ -78,4 +78,6 @@ def edit_blog(request, id):
 
 
 def delete_blog(request, id):
+    blog = Blog.objects.get(id = id)
+    blog.delete()
     return redirect('/profile')
