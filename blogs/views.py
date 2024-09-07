@@ -5,18 +5,26 @@ from .forms import  BlogForm
 # Create your views here.
 
 def home(request):
+    try:
+        blogs = Blog.objects.all()
+    except Exception as e:
+        print(e)
     return render(request, 'blogs/home.html',{
-        'user' : request.user
+        'user' : request.user,
+        'blogs' : blogs
     })
 
 # Get  blog details
 def get_blog(request, id):
     try:
         blog_obj = Blog.objects.get(id = id)
+        category = blog_obj.category
+        related_blogs = Blog.objects.filter(category = category).exclude(title = blog_obj.title)
     except Exception as e:
         print(e)
     return render(request, 'blogs/blog.html',{
-        'blog' : blog_obj
+        'blog' : blog_obj,
+        'related_blogs' : related_blogs
     })
 
 

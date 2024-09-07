@@ -1,9 +1,45 @@
 {% extends "blogs/header.html" %}
+{% load custom_filters %}
 
 {% block content %}
 
-<div class="container">
+<div class="container mt-5">
+    <h1>{{blog.title}}</h1><br>
+    {% if blog.image %}
+    <img src="{{blog.image.url}}" class="img-fluid" alt="..."><br>
+    {% endif %}
+    <div class="container mt-5 mb-4">
+        <div class="d-flex align-items-center">
+            <img src="{{ blog.user.profile_pi.picture.url }}" style="width: 30px; height: 30px;"
+                class="rounded-circle me-3" alt="Profile Picture">
+            <h6 class="mb-0">{{ blog.user.first_name }} - {{ blog.created_at }} - {{ blog.category.category_name }}</h6>
+        </div>
+    </div>
+
     {{blog.content|safe}}
+</div>
+
+<div class="container mt-5">
+    <h2>Related Content</h2>
+
+    <div class="row">
+        {% for related_blog in related_blogs %}
+        <div class="col-md-4">
+            <div class="card shadow-lg mb-4" style="width: 18rem;">
+                {% if blog.image %}
+                    <img src="{{ related_blog.image.url }}" class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ related_blog.title }}</h5>
+                    <small>{{blog.user.first_name}} - {{blog.created_at}} - {{blog.category.category_name}}</small>
+                    <p class="card-text">{{ blog.content|truncate_html:50|safe}}</p>
+                    <a href="{% url 'blog' related_blog.id %}" class="btn btn-primary">Read more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock content %}

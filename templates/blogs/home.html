@@ -1,19 +1,24 @@
 {% extends "blogs/header.html" %}
+{% load custom_filters %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row">
+        {% for blog in blogs %}
         <div class="col-md-4">
-            <div class="card shadow-lg" style="width: 18rem;">
-                <img src="../../media/uploads/froala_editor/images/1725520488760.png" class="card-img-top" alt="...">
+            <div class="card shadow-lg mb-4" style="width: 18rem;">
+                {% if blog.image %}
+                <img src="{{blog.image.url}}" class="img-fluid" alt="..."><br>
+                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <small>{{blog.user.first_name}} - {{blog.created_at}} - {{blog.category.category_name}}</small>
+                    <p class="card-text">{{ blog.content|truncate_html:50|safe}}</p>
+                    <a href="{% url 'blog' blog.id %}" class="btn btn-primary">Read more</a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}
