@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+
+from blogs.models import Blog
 from .models import Profile
 
 # Create your views here.
@@ -68,8 +70,15 @@ def login_page(request):
         print(e)
     return render(request, 'account/login.html')
 
+
 def show_profile(request):
-    return render(request, 'account/profile.html')
+    user = User.objects.get(username = request.user)
+    blogs = Blog.objects.filter(user = user)
+    return render(request, 'account/profile.html',{
+        'user' : user,
+        'blogs' : blogs
+    })
+
 
 def logout_page(request):
     logout(request)

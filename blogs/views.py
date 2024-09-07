@@ -46,7 +46,11 @@ def create_blog(request):
     })
 
 
-def edit_blog(request):
+def edit_blog(request, id):
     return render(request, 'blogs/create_blog.html',{
         'update' : "update"
     })
+
+
+def delete_blog(request, id):
+    return redirect('/profile')
