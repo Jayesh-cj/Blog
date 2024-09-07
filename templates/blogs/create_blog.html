@@ -8,12 +8,12 @@
             {% csrf_token %}
             <div class="mb-3">
                 <label for="bannerImage">Banner Image</label>
-                <input type="file" name="banner" class="form-control" aria-label="file example" required>
+                <input type="file" name="banner" class="form-control" aria-label="file example">
                 <div class="invalid-feedback">Example invalid form file feedback</div>
             </div>
 
             <div class="mb-3">
-                <label for="categoryTitle">Category Title</label>
+                <label for="categoryTitle">Category Title</label>{{blog.category}}
                 <select class="form-select" name="category" required aria-label="Select Category">
                     <option value="">Select Category</option>
                     {% for category in categories %}
@@ -25,7 +25,7 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Blog Title</label>
-                <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter your blog title">
+                <input type="text" name="title" class="form-control" value="{{blog.title}}" id="exampleFormControlInput1" placeholder="Enter your blog title">
               </div>
 
             <div class="mb-3">

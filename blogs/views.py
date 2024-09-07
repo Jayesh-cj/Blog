@@ -47,8 +47,33 @@ def create_blog(request):
 
 
 def edit_blog(request, id):
+    try:
+        category = Category.objects.all().order_by("category_name")
+        blog_obj = Blog.objects.get(id = id)
+        if request.method == 'POST':
+            frm = BlogForm(request.POST)
+            category = request.POST.get('category')
+            title = request.POST.get('title')
+            banner = request.FILES.get('banner')
+
+            if frm.is_valid():
+                content = frm.cleaned_data['content']
+                blog_obj.title = title,
+                blog_obj.content = content,
+                blog_obj.category = Category.objects.get(id = category)
+                if banner:
+                    blog_obj.image = banner
+                blog_obj.save()
+                return redirect('/profile')
+
+        initial_dict = {'content' : blog_obj.content}
+        frm = BlogForm(initial=initial_dict)
+    except Exception as e:
+        print(e)
     return render(request, 'blogs/create_blog.html',{
-        'update' : "update"
+        'frm' : frm,
+        'blog' : blog_obj,
+        'categories' : category
     })
 
 
