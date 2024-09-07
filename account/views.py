@@ -72,4 +72,5 @@ def show_profile(request):
     return render(request, 'account/profile.html')
 
 def logout_page(request):
-    return render(request, 'account/login.html')
+    logout(request)
+    return redirect('/login')

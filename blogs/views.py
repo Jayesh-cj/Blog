@@ -1,11 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
+from .forms import  BlogForm
 
 # Create your views here.
 
 def home(request):
-    print(request.user)
-    return render(request, 'blogs/home.html')
+    return render(request, 'blogs/home.html',{
+        'user' : request.user
+    })
 
 # Get  blog details
 def get_blog(request, id):
@@ -19,7 +21,30 @@ def get_blog(request, id):
 
 
 def create_blog(request):
-    return render(request, 'blogs/create_blog.html')
+    category = Category.objects.all().order_by("category_name")
+    if request.method == 'POST':
+        frm = BlogForm(request.POST)
+        category = request.POST.get('category')
+        title = request.POST.get('title')
+        banner = request.FILES.get('banner')
+
+        if frm.is_valid():
+            content = frm.cleaned_data['content']
+
+            Blog.objects.create(
+                title = title,
+                content = content,
+                category = Category.objects.get(id = category),
+                user = request.user,
+                image = banner
+            )
+            return redirect('/')
+
+    return render(request, 'blogs/create_blog.html',{
+        'frm': BlogForm,
+        'categories' : category
+    })
+
 
 def edit_blog(request):
     return render(request, 'blogs/create_blog.html',{
