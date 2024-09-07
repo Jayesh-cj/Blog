@@ -29,6 +29,19 @@
                                 <div class="card-body p-4 p-lg-5 text-black">
 
                                     <form method="post">
+                                        {% csrf_token %}
+
+                                        {% if messages %}
+                                            {% for message in messages %}
+
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <strong>{{message}}</strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+                                            {% endfor %}
+                                        {% endif %}
 
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -39,20 +52,20 @@
                                             account</h5>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="email" id="form2Example17"
-                                                class="form-control form-control-lg" />
                                             <label class="form-label" for="form2Example17">Email address</label>
+                                            <input type="email" name="email" required id="form2Example17"
+                                                class="form-control form-control-lg" />
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="password" id="form2Example27"
-                                                class="form-control form-control-lg" />
                                             <label class="form-label" for="form2Example27">Password</label>
+                                            <input type="password" name="password" required id="form2Example27"
+                                                class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="pt-1 mb-4">
                                             <button data-mdb-button-init data-mdb-ripple-init
-                                                class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                                                class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>
 
                                         <a class="small text-muted" href="#!">Forgot password?</a>

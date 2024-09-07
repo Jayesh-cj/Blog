@@ -4,6 +4,7 @@ from .models import *
 # Create your views here.
 
 def home(request):
+    print(request.user)
     return render(request, 'blogs/home.html')
 
 # Get  blog details
