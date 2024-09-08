@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from .models import *
 from .forms import  BlogForm
 
@@ -29,6 +30,10 @@ def get_blog(request, id):
 
 
 def create_blog(request):
+    if request.user.is_authenticated == False:
+        messages.success(request, 'Login required!')
+        return redirect('/login')
+    
     category = Category.objects.all().order_by("category_name")
     if request.method == 'POST':
         frm = BlogForm(request.POST)
